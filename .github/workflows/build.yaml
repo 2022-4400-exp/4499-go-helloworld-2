@@ -15,7 +15,11 @@ jobs:
           username: ${{ github.repository_owner }}
           password: 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
 
-      - name: Build Docker image
+
+      - name: Setup buildx
         run: |
           docker buildx create --use --name multi-arch
+
+      - name: Build Docker image
+        run: |
           docker buildx build --platform linux/amd64,linux/arm64 . -t ghcr.io/2022-4400-exp/4499-go-helloworld-2:${{ github.sha }} --push
