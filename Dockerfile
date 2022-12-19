@@ -1,14 +1,14 @@
-FROM golang
+FROM golang:alpine as builder
 
-# 1. ファイルをコンテナにコピー
 COPY . /app
 WORKDIR /app
 
-# 2. 依存ライブラリをインストール
 RUN go install
 
-# 3. アプリケーションをビルド
-RUN go build -o helloworld
+RUN go build -ldflags="-s" -o helloworld
 
-# 4. ビルドして作成されたバイナリを実行
+
+FROM gcr.io/distroless/static
+COPY --from=builder /app/helloworld /app
+
 CMD ["/app/helloworld"]
