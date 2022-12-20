@@ -8,7 +8,7 @@ RUN go install
 RUN go build -o helloworld
 
 
-FROM gcr.io/distroless/static
+FROM alpine
 COPY --from=builder /app/helloworld /
 
 CMD ["/helloworld"]
