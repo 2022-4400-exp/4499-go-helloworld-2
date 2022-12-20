@@ -5,10 +5,10 @@ WORKDIR /app
 
 RUN go install
 
-RUN go build -ldflags="-s" -o helloworld
+RUN go build -o helloworld
 
 
 FROM gcr.io/distroless/static
-COPY --from=builder /app/helloworld /app
+COPY --from=builder /app/helloworld /
 
-CMD ["/app/helloworld"]
+CMD ["/helloworld"]
