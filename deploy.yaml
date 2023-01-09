@@ -15,7 +15,7 @@ spec:
         app: go-helloworld-2
     spec:
       containers:
-      - image: jaganikuman/go-helloworld-small
+      - image: ghcr.io/2022-4400-exp/4499-go-helloworld-2:b0a58fc3c66f50a1fa83948e20f6c43ac31f677b
         name: go-helloworld-small
 ---
 apiVersion: v1
