@@ -16,16 +16,19 @@ jobs:
         with:
           registry: ghcr.io
           username: ${{ github.repository_owner }}
-          password: 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
+          password: ${{ secrets.GITHUB_TOKEN }}
 
 
-      - name: Setup buildx
-        run: |
-          docker buildx create --use --name multi-arch
+      - name: Set up Docker Buildx
+        id: buildx
+        uses: crazy-max/ghaction-docker-buildx@v3
+        with:
+          buildx-version: latest
+          qemu-version: latest
 
       - name: Build Docker image
         run: |
-          docker buildx build --platform linux/amd64,linux/arm64 . -t ghcr.io/2022-4400-exp/4499-go-helloworld-2:${{ github.sha }} --push
+          docker buildx build --platform linux/amd64,linux/arm/v7 . -t ghcr.io/2022-4400-exp/4499-go-helloworld-2:${{ github.sha }} --push
 
 
       - name: Update manifest image tag
